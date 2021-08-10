@@ -1,0 +1,15 @@
+
+
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card mt-5">
+      <% @subscriptions.each do |subscription| %>
+        <div class="card-body">
+          <h5 class="card-title"> <%=subscription.plan  %> </h5>
+          <p class="card-text"> <%= subscription.price %> </p>
+          <a href="#" class="btn btn-primary"><strong>30 Tage</strong> kostenlos testen</a>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
