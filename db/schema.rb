@@ -10,10 +10,55 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_10_190842) do
+ActiveRecord::Schema.define(version: 2021_08_10_202007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "invoice_addresses", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "street"
+    t.integer "zip_code"
+    t.string "city"
+    t.string "country"
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "subscription_id", null: false
+    t.bigint "payment_type_id", null: false
+    t.bigint "invoice_address_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["invoice_address_id"], name: "index_orders_on_invoice_address_id"
+    t.index ["payment_type_id"], name: "index_orders_on_payment_type_id"
+    t.index ["subscription_id"], name: "index_orders_on_subscription_id"
+  end
+
+  create_table "payment_types", force: :cascade do |t|
+    t.string "credit_card"
+    t.string "lastschrift"
+    t.string "amazon_pay"
+    t.string "paypal"
+    t.string "name"
+    t.integer "carb_number"
+    t.integer "cvc"
+    t.date "expiry_date"
+    t.integer "IBAN"
+    t.string "BIC"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.string "plan"
+    t.float "price"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,4 +72,7 @@ ActiveRecord::Schema.define(version: 2021_08_10_190842) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "orders", "invoice_addresses"
+  add_foreign_key "orders", "payment_types"
+  add_foreign_key "orders", "subscriptions"
 end
