@@ -7,7 +7,9 @@
         <div class="card-body">
           <h5 class="card-title"> <%=subscription.plan  %> </h5>
           <p class="card-text"> <%= subscription.price %> </p>
-          <a href="#" class="btn btn-primary"><strong>30 Tage</strong> kostenlos testen</a>
+          <a href="/orders/new?subscription=<%= subscription.id %>" class="btn btn-primary"><strong>30 Tage</strong> kostenlos testen</a>
+
+          <%# <%= link_to "30 Tage kostenlos testen", new_order_path(subscription: subscription.id), class: "btn btn-primary" %>
         </div>
       <% end %>
     </div>

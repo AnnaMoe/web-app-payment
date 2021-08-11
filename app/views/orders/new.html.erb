@@ -1,0 +1,22 @@
+<div class="container py-5">
+  <div class="row">
+    <div class="col-12 col-md-6 offset-md-3">
+      <h3 class= "mb-4">Noch ein letzter Schritt...</h3>
+      <div class="bg-white rounded p-3 mt-3 mb-3">
+        <%= simple_form_for @order do |f| %>
+          <%= f.simple_fields_for :invoice_address do |i| %>
+            <%= i.input :first_name %>
+          <% end %>
+
+          <%= f.simple_fields_for :payment_type do |p| %>
+            
+          <% end %>
+
+          <%= f.button :button, "Jetzt kaufen", class: "btn btn-primary w-100 mt-3 p-2" %>
+        <% end %>
+        <h3>Bestellungszusammenfassung:</h3>
+        <button>Heute fällig: <%= @order.subscription.price %>  </button>
+      </div>
+    </div>
+  </div>
+</div>
