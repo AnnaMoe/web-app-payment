@@ -1,15 +1,22 @@
 <div class="container py-5">
   <div class="row">
-    <div class="col-12 col-md-6 offset-md-3">
+    <div class="col-12 col-md-8 offset-md-2">
       <h3 class= "mb-4">Noch ein letzter Schritt...</h3>
       <div class="bg-white rounded p-3 mt-3 mb-3">
         <%= simple_form_for @order do |f| %>
+          <%# having associated models of those we need the attributes, we use the syntax below: %>
           <%= f.simple_fields_for :invoice_address do |i| %>
-            <%= i.input :first_name %>
+            <%= i.input :first_name, label: "Vorname" %>
+            <%= i.input :last_name, label: "Nachname" %>
+            <%= i.input :street, label: "Straße und Hausnr." %>
+            <%= i.input :zip_code, label: "Postleitzahl" %>
+            <%= i.input :city, label: "Ort" %>
+            <%= i.input :country, label: "Land" %>
+            <%= i.input :email, label: "E-Mail-Adresse für Rechnung und Vertrag", input_html: { value: current_user.email } %>
           <% end %>
 
           <%= f.simple_fields_for :payment_type do |p| %>
-            
+
           <% end %>
 
           <%= f.button :button, "Jetzt kaufen", class: "btn btn-primary w-100 mt-3 p-2" %>
