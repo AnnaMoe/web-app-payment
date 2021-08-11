@@ -6,7 +6,7 @@ class CreatePaymentTypes < ActiveRecord::Migration[6.0]
       t.string :amazon_pay
       t.string :paypal
       t.string :name
-      t.integer :carb_number
+      t.integer :card_number
       t.integer :cvc
       t.date :expiry_date
       t.integer :IBAN

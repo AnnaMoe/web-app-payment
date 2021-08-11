@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2021_08_10_202007) do
     t.string "amazon_pay"
     t.string "paypal"
     t.string "name"
-    t.integer "carb_number"
+    t.integer "card_number"
     t.integer "cvc"
     t.date "expiry_date"
     t.integer "IBAN"
