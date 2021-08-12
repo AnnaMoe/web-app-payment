@@ -4,7 +4,29 @@
       <h3 class= "mb-4">Noch ein letzter Schritt...</h3>
       <div class="bg-white rounded p-3 mt-3 mb-3">
         <%= simple_form_for @order do |f| %>
-          <%# having associated models of those we need the attributes, we use the syntax below: %>
+          <%= f.input :subscription, as: :hidden, input_html: { value: @subscription } %>
+          <h4>Klassische Zahlweise</h4>
+          <h5>Nennen Sie uns Ihre Kontaktinformationen</h5>
+          <br>
+          <%= f.association :payment_type, as: :radio_buttons, boolean_style: :inline, collection: [['Kreditkarte', :credit_card], ['Lastschrift', :lastschrift]] %>
+           <%# having associated models of those we need the attributes, we use the syntax below: %>
+           <% if @order.payment_type == :lastschrift  %>
+            <%= f.simple_fields_for :payment_type do |p| %>
+              <%= p.input :name, label: "Name Kontoinhaber" %>
+              <%= p.input :IBAN, label: "IBAN" %>
+              <%= p.input :BIC, label: "BIC" %>
+            <% end %>
+          <% else %>
+            <%= f.simple_fields_for :payment_type do |p| %>
+              <%= p.input :name, label: "Karteninhaber" %>
+              <%= p.input :card_number, label: "Kartennummer" %>
+              <%= p.input :cvc, label: "Kartenprüfnummer (3-stellig oder 4-stellig" %>
+              <%= p.input :expiry_date, label: "Gültig bis" %>
+            <% end %>
+          <% end %>
+          <br>
+          <hr>
+          <br>
           <%= f.simple_fields_for :invoice_address do |i| %>
             <%= i.input :first_name, label: "Vorname" %>
             <%= i.input :last_name, label: "Nachname" %>
@@ -15,11 +37,9 @@
             <%= i.input :email, label: "E-Mail-Adresse für Rechnung und Vertrag", input_html: { value: current_user.email } %>
           <% end %>
 
-          <%= f.simple_fields_for :payment_type do |p| %>
+          
 
-          <% end %>
-
-          <%= f.button :button, "Jetzt kaufen", class: "btn btn-primary w-100 mt-3 p-2" %>
+          <%= f.button :button, "Jetzt kaufen", class: "btn btn-primary mt-3 mb-3 p-2 align-center" %>
         <% end %>
         <h3>Bestellungszusammenfassung:</h3>
         <button>Heute fällig: <%= @order.subscription.price %>  </button>

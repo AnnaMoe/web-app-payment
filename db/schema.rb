@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_10_202007) do
+ActiveRecord::Schema.define(version: 2021_08_12_194252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2021_08_10_202007) do
     t.string "amazon_pay"
     t.string "paypal"
     t.string "name"
-    t.integer "card_number"
+    t.string "card_number"
     t.integer "cvc"
     t.date "expiry_date"
     t.integer "IBAN"
