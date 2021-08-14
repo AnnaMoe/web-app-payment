@@ -1,7 +1,7 @@
 class SubscriptionsController < ApplicationController
   
   def index
-    @subscriptions = Subscription.all
+    @subscriptions = Subscription.vorauszahlung.yearly
   end
 
 end

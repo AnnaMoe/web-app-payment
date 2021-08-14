@@ -18,7 +18,7 @@ class OrdersController < ApplicationController
     @order.build_invoice_address(address_params)
     @order.build_payment_type(payment_params)
 
-    if @order.save!
+    if @order.save
       redirect_to order_path(@order)
     else
       render :new
@@ -34,9 +34,9 @@ class OrdersController < ApplicationController
   def address_params
     params.require(:order).require(:invoice_address_attributes).permit(:first_name, :last_name, :street, :zip_code, :city, :country, :email)
   end
-  
+
   def payment_params
-    params.require(:order).require(:payment_type_attributes).permit(:lastschrift, :amazon_pay, :paypal, :name, :city, :card_number, :cvc, :expiry_date, :IBAN, :BIC, :credit_card)
+    params.require(:order).require(:payment_type_attributes).permit(:payment_type, :amazon_pay, :paypal, :name, :city, :card_number, :cvc, :expiry_date, :IBAN, :BIC)
   end
   
 

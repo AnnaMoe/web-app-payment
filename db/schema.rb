@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_12_194252) do
+ActiveRecord::Schema.define(version: 2021_08_14_123147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,8 +39,6 @@ ActiveRecord::Schema.define(version: 2021_08_12_194252) do
   end
 
   create_table "payment_types", force: :cascade do |t|
-    t.string "credit_card"
-    t.string "lastschrift"
     t.string "amazon_pay"
     t.string "paypal"
     t.string "name"
@@ -51,13 +49,16 @@ ActiveRecord::Schema.define(version: 2021_08_12_194252) do
     t.string "BIC"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "payment_type"
   end
 
   create_table "subscriptions", force: :cascade do |t|
-    t.string "plan"
+    t.string "plan_type"
     t.float "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "duration_in_months"
+    t.string "choice_of_payment"
   end
 
   create_table "users", force: :cascade do |t|

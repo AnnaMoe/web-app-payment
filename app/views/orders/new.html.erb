@@ -1,4 +1,4 @@
-<div class="container py-5">
+<div class="new-order container py-5">
   <div class="row">
     <div class="col-12 col-md-8 offset-md-2">
       <h3 class= "mb-4">Noch ein letzter Schritt...</h3>
@@ -8,22 +8,26 @@
           <h4>Klassische Zahlweise</h4>
           <h5>Nennen Sie uns Ihre Kontaktinformationen</h5>
           <br>
-          <%= f.association :payment_type, as: :radio_buttons, boolean_style: :inline, collection: [['Kreditkarte', :credit_card], ['Lastschrift', :lastschrift]] %>
-           <%# having associated models of those we need the attributes, we use the syntax below: %>
-           <% if @order.payment_type == :lastschrift  %>
-            <%= f.simple_fields_for :payment_type do |p| %>
+
+          <pre> 
+          <%= @order.payment_type.to_json %>
+          </pre>
+          <%= f.simple_fields_for :payment_type do |p| %>
+            <%= p.input :payment_type, as: :radio_buttons, boolean_style: :inline, collection: [['Kreditkarte', :credit_card], ['Lastschrift', :lastschrift]], input_html: { onchange: "payment_type_click_handler(event)" }  %>
+
+            <div id="ec_card_input_group" class="<%= @order.payment_type.payment_type != 'lastschrift' ? "invisible" : "" %>">
               <%= p.input :name, label: "Name Kontoinhaber" %>
               <%= p.input :IBAN, label: "IBAN" %>
               <%= p.input :BIC, label: "BIC" %>
-            <% end %>
-          <% else %>
-            <%= f.simple_fields_for :payment_type do |p| %>
+            </div>
+            <div id="cc_card_input_group" class="<%= @order.payment_type.payment_type != 'credit_card' ? "invisible" : "" %>">
               <%= p.input :name, label: "Karteninhaber" %>
               <%= p.input :card_number, label: "Kartennummer" %>
               <%= p.input :cvc, label: "Kartenprüfnummer (3-stellig oder 4-stellig" %>
               <%= p.input :expiry_date, label: "Gültig bis" %>
-            <% end %>
+            </div>
           <% end %>
+          
           <br>
           <hr>
           <br>
@@ -47,3 +51,27 @@
     </div>
   </div>
 </div>
+<script>
+function payment_type_click_handler(e) {
+  if (e.target.value == "credit_card") {
+    document.getElementById("cc_card_input_group").classList.toggle("invisible");
+    if (areLastchriftFieldsVisible()){
+      document.getElementById("ec_card_input_group").classList.toggle("invisible");
+    }
+  } else  {
+    document.getElementById("ec_card_input_group").classList.toggle("invisible");
+    if (areCreditCardFieldsVisible()){
+      document.getElementById("cc_card_input_group").classList.toggle("invisible");
+    }
+  }
+}
+
+function areCreditCardFieldsVisible() {
+  return document.getElementById("cc_card_input_group").classList.length == 0;
+}
+
+function areLastchriftFieldsVisible() {
+  return document.getElementById("ec_card_input_group").classList.length == 0;
+}
+
+</script>
