@@ -6,7 +6,7 @@
       <% @subscriptions.each do |subscription| %>
         <div class="card-body">
           <h5 class="card-title"> <%=subscription.plan_type  %> </h5>
-          <p class="card-text"> <%= subscription.price %> </p>
+          <p class="card-text">ab <strong><%= subscription.price %></strong> im Monat  </p>
           <a href="/orders/new?subscription=<%= subscription.id %>" class="btn btn-primary"><strong>30 Tage</strong> kostenlos testen</a>
 
           <%# <%= link_to "30 Tage kostenlos testen", new_order_path(subscription: subscription.id), class: "btn btn-primary" %>

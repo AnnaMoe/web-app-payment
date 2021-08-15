@@ -1,1 +1,18 @@
 <p><%= @order.invoice_address.first_name %>, Your order was successfully created.</p>
+
+<div>
+  <h3>Subscription</h3>
+  <p>Plan type: <%= @order.subscription.plan_type %></p>
+  <p>Duration in months: <%= @order.subscription.duration_in_months %></p>
+  <p>Choice of payment: <%= @order.subscription.choice_of_payment %></p>
+  <p>Price per month: <%= @order.subscription.price %></p>
+  <p>Total price: <%= @order.subscription.total_price %></p>
+</div>
+
+<div>
+  <h3>Payment</h3>
+</div>
+
+<div>
+  <h3>Address</h3>
+</div>
