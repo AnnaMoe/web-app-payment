@@ -1,6 +1,6 @@
 <div class="new-order container py-5">
   <div class="row">
-    <div class="col-12 col-md-8 offset-md-2">
+    <div class="col-md-12">
       <h3 class= "mb-4">Noch ein letzter Schritt...</h3>
       <div class="bg-white rounded p-3 mt-3 mb-3">
         <%= simple_form_for @order do |f| %>
@@ -52,6 +52,8 @@
             <li class="nav-item" role="presentation">
               <a class="nav-link" id="monatszahlung-tab" data-toggle="tab" href="#monatszahlung" role="tab" aria-controls="monatszahlung" aria-selected="false">Monatszahlung</a>
             </li>
+            <%# hidden input to get the params[:subscription][:choice_of_payment] %>
+             <%# need that for creating the order, because we have two tabs, and have to know which of the two the user actually choosed %> 
             <input type="hidden" name="subscription[choice_of_payment]" value="vorauszahlung">
           </ul>
           <div class="tab-content" id="myTabContent">

@@ -1,7 +1,7 @@
 
 
 <div class="row">
-  <div class="col-sm-6">
+  <div class="col-md-12">
     <div class="card mt-5">
       <% @subscriptions.each do |subscription| %>
         <div class="card-body">
@@ -9,7 +9,7 @@
           <p class="card-text">ab <strong><%= subscription.price %></strong> im Monat  </p>
           <a href="/orders/new?subscription=<%= subscription.id %>" class="btn btn-primary"><strong>30 Tage</strong> kostenlos testen</a>
 
-          <%# <%= link_to "30 Tage kostenlos testen", new_order_path(subscription: subscription.id), class: "btn btn-primary" %>
+          <%# <%= link_to "30 Tage kostenlos testen", new_order_path(subscription: subscription.id), class: "btn btn-primary font-weight-bold" %>
         </div>
       <% end %>
     </div>
