@@ -7,6 +7,7 @@ class OrdersController < ApplicationController
     @vorauszahlung_options = @subscriptions.vorauszahlung
     @monatszahlung_options = @subscriptions.monatszahlung
 
+    # do not need subscription here, as we do not need to create a new subscription (it was alrady chosen by the user)
     @order = Order.new(
       invoice_address: InvoiceAddress.new,
       payment_type: PaymentType.new
@@ -59,9 +60,4 @@ class OrdersController < ApplicationController
     params.require(:order).require(:payment_type_attributes).permit(:payment_type, :amazon_pay, :paypal, :name, :city, :card_number, :cvc, :expiry_date, :IBAN, :BIC)
   end
   
-
-  def order_params
-    params.require(:order).permit(:payment_type, :subscription, :invoice_address )
-  end
-
 end
